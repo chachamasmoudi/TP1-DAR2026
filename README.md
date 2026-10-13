@@ -35,7 +35,7 @@ Résultat côté client :
 
 Résultat côté serveur après la connexion du client :
 
-![serveur connecté](images/resultat-cot-serveur.png)
+![serveur connecté](images/resultat-cote-serveur.png)
 
 **Interprétation :** le client se connecte au serveur et lui envoie le nombre 5. Le serveur le multiplie par 3 et renvoie 15, que le client affiche. Ensuite les deux sockets se ferment.
 
