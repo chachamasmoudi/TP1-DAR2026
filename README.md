@@ -39,3 +39,25 @@ Résultat côté serveur après la connexion du client :
 
 **Interprétation :** le client se connecte au serveur et lui envoie le nombre 5. Le serveur le multiplie par 3 et renvoie 15, que le client affiche. Ensuite les deux sockets se ferment.
 
+
+# Activité 1-2 : Service de calculatrice
+
+## Étape 1 : Préparation de l'espace de travail
+
+## Étape 2 : Service de multiplication
+
+### Test avec DataInputStream / DataOutputStream
+![test positif](images/test-positif.png)
+**Interprétation :** le client envoie 1, le serveur renvoie 5 (1 × 5).
+
+![test négatif](images/test-negatif.png)
+**Interprétation :** avec `writeInt`/`readInt`, le négatif -4 donne bien -20,
+alors qu'avec `read()`/`write()` (un seul octet) le résultat serait faux.
+
+![test zéro](images/test-zero.png)
+
+### Version avec boucle
+![session complète client](images/boucle-client.png)
+![session complète serveur](images/boucle-serveur.png)
+**Interprétation :** le client enchaîne plusieurs saisies, et la saisie de 0
+arrête proprement la communication : les sockets sont fermés des deux côtés.
