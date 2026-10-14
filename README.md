@@ -158,3 +158,17 @@ Le client l'affiche et le menu reste disponible.
 
 **Interprétation :** quand le client choisit 0, il l'envoie au serveur. Les deux programmes
 sortent de leur boucle et ferment leurs sockets : la communication s'arrête proprement.
+
+
+
+# Conclusion générale
+
+Ce TP m'a permis de mettre en pratique la communication Client/Serveur en Java avec les sockets TCP en mode connecté.
+
+- **Activité 1-1 :** création d'un serveur (`ServerSocket`) et d'un client (`Socket`) qui échangent un entier.
+- **Activité 1-2 :** ajout d'un calcul côté serveur (x * 5), avec `DataInputStream` et `DataOutputStream` pour gérer les entiers négatifs, et une boucle qui s'arrête proprement à la saisie de 0.
+- **Activité 1-3 :** connexion entre deux machines avec `InetAddress` et `InetSocketAddress`, et calculatrice à quatre opérations avec gestion de la division par zéro.
+
+**Difficultés :** gestion des négatifs, ordre de lancement serveur/client, pare-feu, et utilisation de Git/GitHub.
+
+**Limite :** le serveur ne traite qu'un seul client à la fois ; l'utilisation de threads permettrait d'en gérer plusieurs.
