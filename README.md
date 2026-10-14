@@ -4,6 +4,8 @@
 
 **Filière et Groupe :** LSI3.1.1
 
+# Activité 1-1 : Première connexion Client/Serveur
+
 ## Étape 1 : Vérification de Git
 J'ai vérifié que Git est installé avec la commande `git --version`.
 La version installée est 2.56.0.
