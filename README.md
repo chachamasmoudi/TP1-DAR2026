@@ -70,3 +70,91 @@ alors qu'avec `read()`/`write()` (un seul octet) le résultat serait faux.
 
 **Interprétation :** le client enchaîne plusieurs saisies, et la saisie de 0
 arrête proprement la communication : les sockets sont fermés des deux côtés.
+
+
+
+# Activité 1-3 : Amélioration du service de calculatrice
+
+Classes utilisées : `Server3` (package `serverPackage`) et `Client3` (package `clientPackage`).
+
+## Étape 1 : Connexion Client/Serveur sur deux machines distinctes
+
+### Adresse IP du serveur
+J'ai relevé l'adresse IP du PC serveur avec la commande `ipconfig`. L'adresse IPv4
+de la carte Wi-Fi est **192.168.100.30**.
+
+![ipconfig serveur](images/ipconfig-serveur.png)
+
+
+**Interprétation :** cette adresse identifie le PC serveur sur le réseau local. Les deux
+machines doivent être sur le même réseau (masque 255.255.255.0).
+
+### Test de connectivité
+Depuis le PC client, j'ai testé l'accès au serveur avec `ping 192.168.100.30`.
+
+![ping](images/ping-client.png)
+
+
+**Interprétation :** les réponses du ping montrent que les deux machines se voient sur le réseau.
+
+### Configuration du serveur
+Le serveur utilise `InetAddress` et `InetSocketAddress` pour créer un `ServerSocket`,
+puis le lie à l'adresse IP réelle de la machine et au port 1234 avec `bind()`.
+
+![serveur en attente](images/serveur3-attente.png)
+
+**Interprétation :** le serveur écoute sur 192.168.100.30:1234 et attend la connexion d'un client.
+
+### Configuration du client
+Le client remplace `localhost` par l'adresse IP du serveur, avec `InetAddress` et
+`InetSocketAddress`, et se connecte avec un délai maximal de 5 secondes.
+
+![client connecté](images/client3-menu.png)
+
+**Interprétation :** le client est connecté au serveur depuis une autre machine, et le menu
+de la calculatrice s'affiche.
+
+![les deux machines](images/deux-machines.png)
+
+
+![les deux machines](images/deux-machines2.png)
+
+## Étape 2 : Service de calculatrice amélioré
+
+Le client choisit une opération dans un menu (1 : addition, 2 : soustraction,
+3 : multiplication, 4 : division), puis saisit deux entiers x et y. Il envoie le choix et
+les deux valeurs au serveur avec `DataOutputStream`. Le serveur effectue le calcul et
+renvoie le résultat. Pour la division, il renvoie une erreur si y vaut 0.
+
+### Addition
+![addition](images/client3-addition.png)
+
+**Interprétation :** le serveur reçoit le choix 1 avec x et y, calcule x + y et renvoie le résultat.
+
+### Soustraction
+![soustraction](images/client3-soustraction.png)
+
+**Interprétation :** le calcul gère bien les nombres négatifs grâce à `writeInt` et `readInt`.
+
+### Multiplication
+![multiplication](images/client3-multiplication.png)
+
+**Interprétation :** le serveur calcule x * y et renvoie le résultat.
+
+### Division
+![division](images/client3-division.png)
+
+**Interprétation :** le résultat est un nombre décimal (type `double`), par exemple 10 / 4 = 2.5.
+
+### Division par zéro
+![division par zéro](images/client3-division-zero.png)
+
+**Interprétation :** le serveur détecte y = 0 et renvoie un message d'erreur au lieu de planter.
+Le client l'affiche et le menu reste disponible.
+
+### Fin de la communication
+![fin client](images/client3-fin.png)
+![fin serveur](images/serveur3-fin.png)
+
+**Interprétation :** quand le client choisit 0, il l'envoie au serveur. Les deux programmes
+sortent de leur boucle et ferment leurs sockets : la communication s'arrête proprement.
